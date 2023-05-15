@@ -5,6 +5,7 @@ class MoveableObject {
     height = 150;
     width = 100;
     imageCache = {};
+    currentImg=0;
 
     loadImages(arr) {
         arr.forEach(path => {

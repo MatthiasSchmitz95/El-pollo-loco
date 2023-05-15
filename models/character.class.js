@@ -12,7 +12,7 @@ class Character extends MoveableObject{
         
     ]
 
-    currentImg=0;
+    
 
 
     constructor(y){

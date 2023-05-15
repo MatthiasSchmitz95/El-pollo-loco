@@ -23,15 +23,6 @@ class World {
         this.addObjectToMap(this.enemies);
         this.addObjectToMap(this.clouds);
 
-
-
-        //this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        //this.enemies.forEach(enemy => {
-        //    this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        //});
-        //this.ctx.drawImage(this.clouds.img, this.clouds.x, this.clouds.y, this.clouds.width, this.clouds.height);
-        //this.ctx.drawImage(this.background.img, this.background.x, this.background.y, this.background.width, this.background.height);
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
