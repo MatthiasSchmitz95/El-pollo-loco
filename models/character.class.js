@@ -29,21 +29,21 @@ class Character extends MoveableObject {
     animate() {
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < 720) {
                 // this.moveRight();
                 this.x += 5;
                 this.otherdirection = false;
 
             }
 
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 // this.moveLeft();
                 this.x -= 5;
                 this.otherdirection = true;
 
-                
+
             }
-            this.world.camera_x = -this.x;
+            this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
         setInterval(() => {
