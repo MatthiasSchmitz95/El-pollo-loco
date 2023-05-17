@@ -1,5 +1,5 @@
 class World {
-    character = [new Character(180)]
+    character = new Character(180);
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     clouds = [new Clouds];
     background = [
@@ -9,19 +9,30 @@ class World {
         new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0)
     ];
     ctx;
-    constructor(canvas) {
+    keyboard;
+    camera_x = -100;
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.draw();
+        this.keyboard = keyboard;
+        this.setWorld();
 
 
     }
 
+    setWorld() {
+        this.character.world = this;
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, 700, 400);
+        this.ctx.translate(this.camera_x,0);
         this.addObjectToMap(this.background);
-        this.addObjectToMap(this.character);
+        this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
         this.addObjectToMap(this.clouds);
+        this.ctx.translate(-this.camera_x,0);
+
 
         let self = this;
         requestAnimationFrame(function () {
@@ -39,7 +50,18 @@ class World {
     }
 
     addToMap(object) {
+        if (object.otherdirection) {
+            this.ctx.save();
+            this.ctx.translate(object.width, 0);
+            this.ctx.scale(-1, 1);
+            object.x = object.x * -1;
+        }
         this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        if (object.otherdirection) {
+            this.ctx.restore();
+            object.x = object.x * -1;
+            
+        }
 
 
     }
