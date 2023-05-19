@@ -4,7 +4,11 @@ class Character extends MoveableObject {
     speed = 5;
     y = 80;
     health = 100;
-    IMAGES_WALKINg = [
+    coins = 0;
+    bottles = 0;
+
+
+    IMAGES_WALKING = [
         '../img/2_character_pepe/2_walk/W-21.png',
         '../img/2_character_pepe/2_walk/W-22.png',
         '../img/2_character_pepe/2_walk/W-23.png',
@@ -44,24 +48,18 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/5_dead/D-56.png',
         '../img/2_character_pepe/5_dead/D-57.png'
 
-    ]
+    ];
 
     world;
     walking_sound = new Audio('../audio/walking.mp3')
-
-
-
-
     constructor() {
         super().loadImage('../img/2_character_pepe/2_walk/W-21.png');
-        this.loadImages(this.IMAGES_WALKINg);
+        this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_AIR);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.animate();
         this.applyGravity();
-        //this.jump();
-
 
     }
 
@@ -92,16 +90,16 @@ class Character extends MoveableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else
-            if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                
-            }else
+                if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+
+                } else
 
                     if (this.isAboveGround()) {
                         this.playAnimation(this.IMAGES_AIR);
                     } else
                         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                            this.playAnimation(this.IMAGES_WALKINg);
+                            this.playAnimation(this.IMAGES_WALKING);
                         }
 
         }, 100);

@@ -10,7 +10,7 @@ function init() {
     console.log('Mein Character', world.character)
 
     window.addEventListener('keydown', (e) => {
-        //console.log(e);
+        console.log(e);
         let key = e['code'];
         if (key === "Space") {
            // console.log("Space");
@@ -40,6 +40,11 @@ function init() {
             keyboard.UP = true;
 
         }
+        if (key === "KeyD") {
+            // console.log(keyboard);
+             keyboard.D = true;
+ 
+         }
 
 
     })
@@ -75,6 +80,11 @@ function init() {
             keyboard.UP = false;
 
         }
+        if (key === "KeyD") {
+            // console.log(keyboard);
+             keyboard.D = false;
+ 
+         }
     })
 
 }
