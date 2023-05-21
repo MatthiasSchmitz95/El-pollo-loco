@@ -1,14 +1,21 @@
 class ThrowableObjects extends MoveableObject {
     speedX = 5;
     speedY = 5;
+    keyboard;
 
-    constructor(x,y) {
+    constructor(x, y, keyboard) {
         super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.x = 100;
         this.y = 100;
         this.height = 60;
         this.width = 50;
-        this.throw(x,y);
+        this.keyboard = keyboard;
+
+        this.throw(x, y);
+
+
+
+
     }
 
     throw(x, y) {
@@ -16,9 +23,10 @@ class ThrowableObjects extends MoveableObject {
         this.x = x;
         this.y = y;
         this.applyGravity();
-        setInterval(()=>{
-            this.x +=10;
-        },25)
+        setInterval(() => {
+            this.x += 10;
+        }, 25);
+
 
     }
 

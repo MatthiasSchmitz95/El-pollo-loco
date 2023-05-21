@@ -7,6 +7,7 @@ class World {
     level = level1;
     keyboard;
     camera_x = -100;
+    thrown = 0;
 
 
     constructor(canvas, keyboard) {
@@ -23,18 +24,17 @@ class World {
             this.coinCollision();
             this.bottleCollision();
             this.checkThrowObject();
-            
-
-
 
         }, 200);
     }
 
-    checkThrowObject(){
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObjects(this.character.x +50,this.character.y+120);
+    checkThrowObject() {
+        if (this.keyboard.D && this.thrown !== 0) {
+            let bottle = new ThrowableObjects(this.character.x + 50, this.character.y + 120);
             this.ThrowableObjects.push(bottle);
-            
+            this.character.loseBottle();
+            this.statusbarBottle.setPercentage(this.character.bottles);
+            this.thrown--;
         }
 
     }
@@ -51,22 +51,51 @@ class World {
     }
 
     coinCollision() {
-        this.level.coins.forEach((coin) => {
+        //   this.level.coins.forEach((coin) => {
+        //       if (this.character.isColliding(coin)) {
+        //           this.character.collect();
+        //           this.statusbarCoin.setPercentage(this.character.coins);
+        //           this.level.coins.splice(0,1);
+        //       }
+        //   });
+
+        for (let i = 0; i < this.level.coins.length; i++) {
+            const coin = this.level.coins[i];
             if (this.character.isColliding(coin)) {
                 this.character.collect();
                 this.statusbarCoin.setPercentage(this.character.coins);
+                this.level.coins.splice(i, 1);
 
             }
-        });
+
+        }
     }
 
     bottleCollision() {
-        this.level.salsabottle.forEach((bottle) => {
+        //     this.level.salsabottle.forEach((bottle) => {
+        //         if (this.character.isColliding(bottle)) {
+        //             this.character.collectBottle();
+        //             this.statusbarBottle.setPercentage(this.character.bottles);
+        //         }
+        //     });
+
+        for (let i = 0; i < this.level.salsabottle.length; i++) {
+            const bottle = this.level.salsabottle[i];
             if (this.character.isColliding(bottle)) {
                 this.character.collectBottle();
                 this.statusbarBottle.setPercentage(this.character.bottles);
+                this.level.salsabottle.splice(i, 1);
+                if (this.thrown >= 4) {
+                    this.thrown = 4;
+
+                } else {
+                    this.thrown++;
+                }
+
+
+
             }
-        });
+        }
     }
 
 

@@ -61,6 +61,14 @@ class MoveableObject extends DrawableObjects {
         }
     }
 
+    loseBottle() {
+        this.bottles -= 20;
+        if (this.bottles == 0) {
+            this.bottles = 0;
+
+        }
+    }
+
     isHurt() {
         let timepassed = new Date() - this.lasthit;
         timepassed = timepassed / 1000;

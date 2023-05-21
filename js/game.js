@@ -6,6 +6,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    throwableObjects =(keyboard);
 
     console.log('Mein Character', world.character)
 
