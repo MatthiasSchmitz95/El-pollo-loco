@@ -3,7 +3,8 @@ class World {
     statusbar = new Statusbar();
     statusbarCoin = new StatusbarCoin();
     statusbarBottle = new StatusbarBottle();
-    ThrowableObjects = [];
+    statusbarEndboss = new StatusbarEndboss();
+    throwableObjects = [];
     level = level1;
     keyboard;
     camera_x = -100;
@@ -24,6 +25,7 @@ class World {
             this.coinCollision();
             this.bottleCollision();
             this.checkThrowObject();
+           // this.hitEnemy()
 
         }, 200);
     }
@@ -31,7 +33,7 @@ class World {
     checkThrowObject() {
         if (this.keyboard.D && this.thrown !== 0) {
             let bottle = new ThrowableObjects(this.character.x + 50, this.character.y + 120);
-            this.ThrowableObjects.push(bottle);
+            this.throwableObjects.push(bottle);
             this.character.loseBottle();
             this.statusbarBottle.setPercentage(this.character.bottles);
             this.thrown--;
@@ -40,63 +42,60 @@ class World {
     }
 
     enemyCollision() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+        this.level.enemies.forEach((enemy,index) => {
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 console.log('Collision with charackter', enemy)
                 this.character.hit();
                 this.statusbar.setPercentage(this.character.health);
                 console.log(this.character.health);
+            }else
+            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                this.level.enemies.splice(index,1);
+                
             }
         });
     }
 
     coinCollision() {
-        //   this.level.coins.forEach((coin) => {
-        //       if (this.character.isColliding(coin)) {
-        //           this.character.collect();
-        //           this.statusbarCoin.setPercentage(this.character.coins);
-        //           this.level.coins.splice(0,1);
-        //       }
-        //   });
-
-        for (let i = 0; i < this.level.coins.length; i++) {
-            const coin = this.level.coins[i];
+        this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.collect();
                 this.statusbarCoin.setPercentage(this.character.coins);
-                this.level.coins.splice(i, 1);
-
+                this.level.coins.splice(index, 1);
             }
+        });
 
-        }
     }
 
     bottleCollision() {
-        //     this.level.salsabottle.forEach((bottle) => {
-        //         if (this.character.isColliding(bottle)) {
-        //             this.character.collectBottle();
-        //             this.statusbarBottle.setPercentage(this.character.bottles);
-        //         }
-        //     });
-
-        for (let i = 0; i < this.level.salsabottle.length; i++) {
-            const bottle = this.level.salsabottle[i];
+        this.level.salsabottle.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.collectBottle();
                 this.statusbarBottle.setPercentage(this.character.bottles);
-                this.level.salsabottle.splice(i, 1);
+                this.level.salsabottle.splice(index, 1);
                 if (this.thrown >= 4) {
                     this.thrown = 4;
 
                 } else {
                     this.thrown++;
                 }
-
-
-
             }
-        }
+        });
     }
+
+   // hitEnemy(){
+   //     this.level.enemies.forEach((enemy,index)=>{
+   //         if (this.character.isColliding(enemy)) {
+   //             
+   //             this.level.enemies.splice(index,1);
+   //             
+   //         }
+   //     })
+   // }
+    defeated(){
+        return true;
+    }
+
 
 
     setWorld() {
@@ -108,11 +107,12 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectToMap(this.level.background);
         this.addToMap(this.character);
+        this.addToMap(this.statusbarEndboss);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.salsabottle);
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.coins);
-        this.addObjectToMap(this.ThrowableObjects);
+        this.addObjectToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusbar);
         this.addToMap(this.statusbarCoin);

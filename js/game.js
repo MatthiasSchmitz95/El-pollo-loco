@@ -8,10 +8,10 @@ function init() {
     world = new World(canvas, keyboard);
     throwableObjects =(keyboard);
 
-    console.log('Mein Character', world.character)
+  //  console.log('Mein Character', world.character)
 
     window.addEventListener('keydown', (e) => {
-        console.log(e);
+        //console.log(e);
         let key = e['code'];
         if (key === "Space") {
            // console.log("Space");

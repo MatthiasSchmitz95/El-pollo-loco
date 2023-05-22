@@ -4,8 +4,8 @@ class Salsabottle extends DrawableObjects {
     height = 70;
     width = 50;
     IMAGE_SALSABOTTLE = [
-        '../img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
-        '../img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        'img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
 
     ]
 

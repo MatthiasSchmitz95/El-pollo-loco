@@ -8,7 +8,7 @@ class DrawableObjects{
     img;
 
     drawBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall) {
             ctx.beginPath();
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
@@ -33,8 +33,13 @@ class DrawableObjects{
     }
 
     draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try{
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
+        } catch(e){
+
+        }
+        
     }
 
     
