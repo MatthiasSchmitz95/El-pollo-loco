@@ -1,5 +1,5 @@
 class Salsabottle extends DrawableObjects {
-    x = 200;
+    x = 100;
     y = 360;
     height = 70;
     width = 50;

@@ -1,9 +1,71 @@
-body{
+body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-image: url('img/deser_background_img.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0px;
+    height: 100vh;
+    font-family: 'zabra';
+}
+button{
+    cursor: pointer;
 }
 
-canvas{
+h1 {
+    font-size: 80px;
+}
+
+p {
+    font-size: 30px;
+    color: white;
+}
+
+@font-face {
+    font-family: 'zabra';
+    src: url('fonts/zabars.ttf');
+}
+
+canvas {
     background-color: black;
+}
+
+.guide-container {
+    width: 720px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 187px;
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    background-image: url("img/9_intro_outro_screens/start/startscreen_2.png");
+    background-position-x: 770px;
+    background-size: cover;
+
+}
+
+#cover button {
+    margin-top: 50px;
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: #FFB500;
+    font-family: 'zabra';
+    font-size: 30px;
+    
+
+}
+
+#cover img {
+    width: 720px;
+    height: 480px;
+
 }

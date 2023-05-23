@@ -25,9 +25,9 @@ class World {
             this.coinCollision();
             this.bottleCollision();
             this.checkThrowObject();
-           // this.hitEnemy()
+            this.checkBottle();
 
-        }, 200);
+        }, 80);
     }
 
     checkThrowObject() {
@@ -37,22 +37,24 @@ class World {
             this.character.loseBottle();
             this.statusbarBottle.setPercentage(this.character.bottles);
             this.thrown--;
+            
         }
+
 
     }
 
     enemyCollision() {
-        this.level.enemies.forEach((enemy,index) => {
+        this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 console.log('Collision with charackter', enemy)
                 this.character.hit();
                 this.statusbar.setPercentage(this.character.health);
                 console.log(this.character.health);
-            }else
-            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                this.level.enemies.splice(index,1);
-                
-            }
+            } else
+                if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                    this.level.enemies.splice(index, 1);
+
+                }
         });
     }
 
@@ -83,16 +85,23 @@ class World {
         });
     }
 
-   // hitEnemy(){
-   //     this.level.enemies.forEach((enemy,index)=>{
-   //         if (this.character.isColliding(enemy)) {
-   //             
-   //             this.level.enemies.splice(index,1);
-   //             
-   //         }
-   //     })
-   // }
-    defeated(){
+    hitEnemy(bottle) {
+        this.level.enemies.forEach((enemy, index) => {
+            if (bottle.isColliding(enemy)) {
+                this.level.enemies.splice(index, 1);
+                console.log('hit');
+            }
+        })
+    }
+
+    checkBottle() {
+        this.throwableObjects.forEach((bottle, index) => {
+            this.hitEnemy(bottle);
+
+        })
+
+    }
+    defeated() {
         return true;
     }
 

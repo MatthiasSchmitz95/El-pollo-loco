@@ -79,6 +79,10 @@ class MoveableObject extends DrawableObjects {
         return this.health == 0;
     }
 
+    enemyDead(){
+        return true;
+    };
+
     flipImage(ctx) {
         ctx.save();
         ctx.translate(this.width, 0);

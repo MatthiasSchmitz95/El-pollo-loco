@@ -3,10 +3,13 @@ let world;
 let keyboard = new Keyboard();
 
 
-function init() {
+async function init() {
+    await startLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     throwableObjects =(keyboard);
+    removeCover();
+    
 
   //  console.log('Mein Character', world.character)
 
@@ -87,5 +90,12 @@ function init() {
  
          }
     })
+
+}
+
+
+function removeCover(){
+    document.getElementById('cover').style.display = 'none';
+    
 
 }
