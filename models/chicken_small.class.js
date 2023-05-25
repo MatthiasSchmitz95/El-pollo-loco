@@ -3,6 +3,7 @@ class ChickenSmall extends MoveableObject {
     width = 70;
     height = 70;
     health =1;
+    hurt =false;
 
 
     IMAGES_WALKINg = [

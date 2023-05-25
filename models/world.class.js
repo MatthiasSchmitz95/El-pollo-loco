@@ -10,6 +10,8 @@ class World {
     camera_x = -100;
     thrown = 0;
     justThrown = false;
+    canvas;
+    ctx;
 
 
     constructor(canvas, keyboard) {
@@ -33,7 +35,7 @@ class World {
 
     checkThrowObject() {
         if (this.keyboard.D && this.thrown !== 0 && this.justThrown == false) {
-            let bottle = new ThrowableObjects(this.character.x + 50, this.character.y + 120);
+            let bottle = new ThrowableObjects(this.character.x + 50, this.character.y + 120, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             this.character.loseBottle();
             this.statusbarBottle.setPercentage(this.character.bottles);
@@ -52,18 +54,26 @@ class World {
             if (this.level.enemies[index].health == 0) {
                 this.level.enemies.splice(index, 1);
             }
-   
+
 
         }, 3000)
 
     }
 
+    jumpOnHead(enemy) {
+        if (!enemy.isDead()) {
+            this.character.speedY = 20;
+
+        };
+    }
+
     enemyCollision() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                if (enemy.health >0) {
-                    enemy.health--;          
-                } 
+                this.jumpOnHead(enemy);
+                if (enemy.health > 0) {
+                    enemy.health--;
+                }
                 this.removeBody(index);
             } else
 
@@ -105,14 +115,14 @@ class World {
     hitEnemy(bottle) {
         this.level.enemies.forEach((enemy, index) => {
             if (bottle.isColliding(enemy)) {
-                if (enemy.health >0) {
-                    enemy.health--;          
-                } 
-                if (enemy.health ==0) {
+                if (enemy.health > 0) {
+                    enemy.health--;
+                }
+                if (enemy.health == 0) {
                     this.removeBody(index);
-                    
-                }     
-                
+
+                }
+
                 console.log(enemy.health);
                 console.log(this.enemies);
             }
@@ -131,7 +141,6 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.throwableObjects.world = this;
     }
 
     draw() {
@@ -169,12 +178,12 @@ class World {
     }
 
     addToMap(object) {
-        if (object.otherdirection) {
+        if (object.otherDirection) {
             object.flipImage(this.ctx);
         }
         object.draw(this.ctx);
-        object.drawBorder(this.ctx);
-        if (object.otherdirection) {
+        //    object.drawBorder(this.ctx);
+        if (object.otherDirection) {
             object.flipImageBack(this.ctx);
 
         }

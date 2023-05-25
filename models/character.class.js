@@ -6,7 +6,8 @@ class Character extends MoveableObject {
     health = 100;
     coins = 0;
     bottles = 0;
-    otherdirection;
+    otherDirection;
+    world;
 
     IMAGES_IDLE =[
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -74,7 +75,8 @@ class Character extends MoveableObject {
 
     ];
 
-    world;
+
+
     walking_sound = new Audio('audio/walking.mp3')
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -86,7 +88,9 @@ class Character extends MoveableObject {
         this.animate();
         this.applyGravity();
 
+
     }
+
 
 
     animate() {
@@ -95,16 +99,16 @@ class Character extends MoveableObject {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < 1320) {
                 this.moveRight();
-                this.otherdirection = false;
+                this.otherDirection = false;
                 this.walking_sound.play();
-                console.log(this.otherdirection);
+                console.log(this.otherDirection);
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
-                this.otherdirection = true;
+                this.otherDirection = true;
                 this.walking_sound.play();
-                console.log(this.otherdirection);
+                console.log(this.otherDirection);
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
