@@ -3,7 +3,7 @@ class Endboss extends MoveableObject {
     y = 50;
     height = 400;
     width = 300;
-    health = 100;
+    health = 15;
     speed = 1;
     hurt = false;
     IMAGES_ALERT = [
@@ -69,7 +69,7 @@ class Endboss extends MoveableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else
-                if (this.health != 100) {
+                if (this.health != 15) {
                     this.playAnimation(this.IMAGES_HURT);
                     this.moveLeft();
                 } else {

@@ -29,7 +29,6 @@ class World {
             this.bottleCollision();
             this.checkThrowObject();
             this.checkBottle();
-
         }, 25);
     }
 
@@ -51,11 +50,7 @@ class World {
 
     removeBody(index) {
         setTimeout(() => {
-            if (this.level.enemies[index].health == 0) {
-                this.level.enemies.splice(index, 1);
-            }
-
-
+            this.level.enemies.splice(index, 1);
         }, 3000)
 
     }
@@ -69,16 +64,19 @@ class World {
 
     enemyCollision() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead() && !(enemy instanceof Endboss)) {
                 this.jumpOnHead(enemy);
                 if (enemy.health > 0) {
                     enemy.health--;
                 }
-                this.removeBody(index);
-            } else
+                if (enemy.isDead()) {
+                    this.removeBody(index);
+                }
+                
 
+
+            } else
                 if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
-                    console.log('Collision with charackter', enemy)
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.health);
                     console.log(this.character.health);
@@ -114,17 +112,18 @@ class World {
 
     hitEnemy(bottle) {
         this.level.enemies.forEach((enemy, index) => {
-            if (bottle.isColliding(enemy)) {
+            if (bottle.isColliding(enemy) && !enemy.isDead()) {
                 if (enemy.health > 0) {
                     enemy.health--;
+                 //   if (enemy instanceof Endboss) {
+                 //       this.statusbarEndboss.setPercentage(enemy.health);
+                 //       
+                 //   }
                 }
-                if (enemy.health == 0) {
+                if (enemy.isDead()) {
                     this.removeBody(index);
-
                 }
-
-                console.log(enemy.health);
-                console.log(this.enemies);
+                console.log(enemy.health, enemy);
             }
         });
     }
@@ -147,10 +146,9 @@ class World {
         this.ctx.clearRect(0, 0, 700, 400);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectToMap(this.level.background);
-        this.addToMap(this.character);
-        this.addToMap(this.statusbarEndboss);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.salsabottle);
+        this.addToMap(this.character);
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.coins);
         this.addObjectToMap(this.throwableObjects);
@@ -158,10 +156,9 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.statusbarCoin);
         this.addToMap(this.statusbarBottle);
+        this.addToMap(this.statusbarEndboss);
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
-
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -182,7 +179,7 @@ class World {
             object.flipImage(this.ctx);
         }
         object.draw(this.ctx);
-        //    object.drawBorder(this.ctx);
+        object.drawBorder(this.ctx);
         if (object.otherDirection) {
             object.flipImageBack(this.ctx);
 

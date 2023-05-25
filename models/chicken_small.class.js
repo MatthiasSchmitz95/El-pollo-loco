@@ -5,6 +5,8 @@ class ChickenSmall extends MoveableObject {
     health =1;
     hurt =false;
 
+    chicken_sound = new Audio('audio/chicken-sound.mp3');
+
 
     IMAGES_WALKINg = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -33,6 +35,10 @@ class ChickenSmall extends MoveableObject {
 
         setInterval(() => {   
             if (this.isDead()) {
+                this.chicken_sound.play();
+                setTimeout(() => {
+                    this.chicken_sound.pause();
+                }, 1000);
                 this.playAnimation(this.IMAGES_DEAD);
                 this.speed =0;
 

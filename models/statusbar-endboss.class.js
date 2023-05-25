@@ -1,11 +1,13 @@
 class StatusbarEndboss extends DrawableObjects{
 
-x=900;
-y=10;
-width= 300;
-height=100;
+x=500;
+y=15;
+width= 200;
+height=80;
 
-IMAGES_HPENDBOSS = ['img/7_statusbars/2_statusbar_endboss/orange.png'];
+IMAGES_HPENDBOSS = ['img/7_statusbars/2_statusbar_endboss/orange.png'
+
+];
 
 constructor(){
     super();
