@@ -9,6 +9,7 @@ class World {
     keyboard;
     camera_x = -100;
     thrown = 0;
+    justThrown = false;
 
 
     constructor(canvas, keyboard) {
@@ -27,33 +28,50 @@ class World {
             this.checkThrowObject();
             this.checkBottle();
 
-        }, 80);
+        }, 25);
     }
 
     checkThrowObject() {
-        if (this.keyboard.D && this.thrown !== 0) {
+        if (this.keyboard.D && this.thrown !== 0 && this.justThrown == false) {
             let bottle = new ThrowableObjects(this.character.x + 50, this.character.y + 120);
             this.throwableObjects.push(bottle);
             this.character.loseBottle();
             this.statusbarBottle.setPercentage(this.character.bottles);
             this.thrown--;
-            
+            this.justThrown = true;
+            setTimeout(() => {
+                this.justThrown = false;
+            }, 500)
+
         }
 
+    }
+
+    removeBody(index) {
+        setTimeout(() => {
+            if (this.level.enemies[index].health == 0) {
+                this.level.enemies.splice(index, 1);
+            }
+   
+
+        }, 3000)
 
     }
 
     enemyCollision() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
-                console.log('Collision with charackter', enemy)
-                this.character.hit();
-                this.statusbar.setPercentage(this.character.health);
-                console.log(this.character.health);
+            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                if (enemy.health >0) {
+                    enemy.health--;          
+                } 
+                this.removeBody(index);
             } else
-                if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                    this.level.enemies.splice(index, 1);
 
+                if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
+                    console.log('Collision with charackter', enemy)
+                    this.character.hit();
+                    this.statusbar.setPercentage(this.character.health);
+                    console.log(this.character.health);
                 }
         });
     }
@@ -71,13 +89,12 @@ class World {
 
     bottleCollision() {
         this.level.salsabottle.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle)) {
+            if (this.character.isColliding(bottle) && this.thrown < 5) {
                 this.character.collectBottle();
                 this.statusbarBottle.setPercentage(this.character.bottles);
                 this.level.salsabottle.splice(index, 1);
-                if (this.thrown >= 4) {
-                    this.thrown = 4;
-
+                if (this.thrown >= 5) {
+                    this.thrown = 5;
                 } else {
                     this.thrown++;
                 }
@@ -88,10 +105,18 @@ class World {
     hitEnemy(bottle) {
         this.level.enemies.forEach((enemy, index) => {
             if (bottle.isColliding(enemy)) {
-                this.level.enemies.splice(index, 1);
-                console.log('hit');
+                if (enemy.health >0) {
+                    enemy.health--;          
+                } 
+                if (enemy.health ==0) {
+                    this.removeBody(index);
+                    
+                }     
+                
+                console.log(enemy.health);
+                console.log(this.enemies);
             }
-        })
+        });
     }
 
     checkBottle() {
@@ -101,14 +126,12 @@ class World {
         })
 
     }
-    defeated() {
-        return true;
-    }
 
 
 
     setWorld() {
         this.character.world = this;
+        this.throwableObjects.world = this;
     }
 
     draw() {

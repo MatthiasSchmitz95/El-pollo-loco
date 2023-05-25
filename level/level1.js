@@ -26,7 +26,7 @@ level1 = new Level(
     [new Chicken(), new ChickenSmall(), new Chicken(), new ChickenSmall(), new Chicken(), new ChickenSmall(), new Endboss()],
     [new Clouds(100), new Clouds(750), new Clouds(800), new Clouds(400), new Clouds(900), new Clouds(1300)],
     [new Coin(), new Coin(), new Coin()],
-    [new Salsabottle(), new Salsabottle(), new Salsabottle(), new Salsabottle()]
+    [new Salsabottle(), new Salsabottle(), new Salsabottle(), new Salsabottle(),new Salsabottle(), new Salsabottle(), new Salsabottle(), new Salsabottle()]
 
 );
 

@@ -9,10 +9,11 @@ async function init() {
     world = new World(canvas, keyboard);
     throwableObjects =(keyboard);
     removeCover();
-    
+    keyboardCheck();
 
-  //  console.log('Mein Character', world.character)
+}
 
+function keyboardCheck(){
     window.addEventListener('keydown', (e) => {
         //console.log(e);
         let key = e['code'];
@@ -89,8 +90,7 @@ async function init() {
              keyboard.D = false;
  
          }
-    })
-
+    });
 }
 
 

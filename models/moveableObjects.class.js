@@ -35,10 +35,9 @@ class MoveableObject extends DrawableObjects {
         this.x += this.speed;
     }
 
-
-
     hit() {
         this.health -= 20;
+        this.x -=200;
         if (this.health < 0) {
             this.health = 0;
         } else {
@@ -79,9 +78,9 @@ class MoveableObject extends DrawableObjects {
         return this.health == 0;
     }
 
-    enemyDead(){
-        return true;
-    };
+    enemyHit(){
+        this.health -=1;
+    }
 
     flipImage(ctx) {
         ctx.save();

@@ -6,6 +6,7 @@ class Character extends MoveableObject {
     health = 100;
     coins = 0;
     bottles = 0;
+    otherdirection;
 
     IMAGES_IDLE =[
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -96,12 +97,14 @@ class Character extends MoveableObject {
                 this.moveRight();
                 this.otherdirection = false;
                 this.walking_sound.play();
+                console.log(this.otherdirection);
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherdirection = true;
                 this.walking_sound.play();
+                console.log(this.otherdirection);
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
