@@ -6,7 +6,8 @@ let win = 'You won';
 let lose = 'Game over';
 let fullscreencheck = false;
 let mute = false;
-let instruction =false;
+let instruction = false;
+let gameStarted = false;
 
 let walking_sound = new Audio('audio/walking.mp3');
 let death_sound = new Audio('audio/death-sound.mp3');
@@ -29,6 +30,7 @@ async function init() {
     world = new World(canvas, keyboard);
     removeCover();
     keyboardCheck();
+    gameStarted=true;
 
 }
 
@@ -192,17 +194,26 @@ function soundMuteToggle(stance) {
 }
 
 function showIntsructions() {
-    if (instruction) {
+    if (!instruction) {
         document.getElementById('guide').style.display = '';
         document.getElementById('cover').style.display = 'none';
-        instruction=false;
+        instruction = true;
+
+    }
+    else {
+        if (gameStarted) {
+            document.getElementById('guide').style.display = 'none';
+            instruction = false;
+            }
+            else{
+                document.getElementById('guide').style.display = '';
+                document.getElementById('cover').style.display = 'none';
+
+            }
         
     }
-    else{
-        document.getElementById('guide').style.display = 'none';
-        document.getElementById('cover').style.display = '';
-        instruction=true;
+  
+
     }
 
 
-}
