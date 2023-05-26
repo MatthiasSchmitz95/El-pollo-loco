@@ -1,55 +1,74 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let IntervallIds = [];
+let win = 'You won';
+let lose = 'Game over';
+let fullscreencheck = false;
+let mute = false;
+let instruction =false;
 
+let walking_sound = new Audio('audio/walking.mp3');
+let death_sound = new Audio('audio/death-sound.mp3');
+let hurt_sound = new Audio('audio/hurt-sound.mp3');
+let jump_sound = new Audio('audio/jump-sound.mp3');
+let chicken_sound = new Audio('audio/chicken-sound.mp3');
+let background_sound = new Audio('audio/background-sound.mp3');
+let collect_sound = new Audio('audio/collect-coin.mp3');
+
+
+
+function playBackgroundSound() {
+    background_sound.loop = true;
+    background_sound.play();
+}
 
 async function init() {
     await startLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    throwableObjects =(keyboard);
     removeCover();
     keyboardCheck();
 
 }
 
-function keyboardCheck(){
+function keyboardCheck() {
     window.addEventListener('keydown', (e) => {
         //console.log(e);
         let key = e['code'];
         if (key === "Space") {
-           // console.log("Space");
+            // console.log("Space");
             keyboard.SPACE = true;
 
         }
         if (key === "ArrowRight") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.RIGHT = true;
 
         }
 
         if (key === "ArrowLeft") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.LEFT = true;
 
         }
 
         if (key === "ArrowDown") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.DOWN = true;
 
         }
 
         if (key === "ArrowUp") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.UP = true;
 
         }
         if (key === "KeyD") {
             // console.log(keyboard);
-             keyboard.D = true;
- 
-         }
+            keyboard.D = true;
+
+        }
 
 
     })
@@ -58,18 +77,18 @@ function keyboardCheck(){
         //console.log(e);
         let key = e['code'];
         if (key === "Space") {
-           // console.log("Space");
+            // console.log("Space");
             keyboard.SPACE = false;
 
         }
         if (key === "ArrowRight") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.RIGHT = false;
 
         }
 
         if (key === "ArrowLeft") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.LEFT = false;
 
         }
@@ -81,21 +100,109 @@ function keyboardCheck(){
         }
 
         if (key === "ArrowUp") {
-           // console.log(keyboard);
+            // console.log(keyboard);
             keyboard.UP = false;
 
         }
         if (key === "KeyD") {
             // console.log(keyboard);
-             keyboard.D = false;
- 
-         }
+            keyboard.D = false;
+
+        }
     });
 }
 
 
-function removeCover(){
+function removeCover() {
     document.getElementById('cover').style.display = 'none';
-    
+    playBackgroundSound();
+
+
+}
+
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    IntervallIds.push(id);
+
+}
+
+function stopGame(result) {
+    IntervallIds.forEach(clearInterval);
+}
+
+function fullscreen() {
+    let fullscreen = document.getElementById('fullscreen');
+    if (!fullscreencheck) {
+        enterFullscreen(fullscreen);
+
+    } else {
+        exitFullscreen()
+
+    }
+
+}
+
+function enterFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+        element.webkitRequestFullscreen();
+    }
+    fullscreencheck = true;
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+
+    }
+    fullscreencheck = false;
+}
+
+function muteSpeaker() {
+    let speaker = document.getElementById('speaker');
+    let muteing = document.getElementById('mute');
+    if (!mute) {
+        speaker.style.display = 'none';
+        muteing.style.display = '';
+        mute = true;
+        soundMuteToggle(true);
+
+    } else {
+        speaker.style.display = '';
+        muteing.style.display = 'none';
+        mute = false;
+        soundMuteToggle(false);
+    }
+}
+
+function soundMuteToggle(stance) {
+    walking_sound.muted = stance;
+    death_sound.muted = stance;
+    hurt_sound.muted = stance;
+    jump_sound.muted = stance;
+    chicken_sound.muted = stance;
+    background_sound.muted = stance;
+    collect_sound.muted = stance;
+
+}
+
+function showIntsructions() {
+    if (instruction) {
+        document.getElementById('guide').style.display = '';
+        document.getElementById('cover').style.display = 'none';
+        instruction=false;
+        
+    }
+    else{
+        document.getElementById('guide').style.display = 'none';
+        document.getElementById('cover').style.display = '';
+        instruction=true;
+    }
+
 
 }

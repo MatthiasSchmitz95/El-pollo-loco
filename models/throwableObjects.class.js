@@ -33,7 +33,7 @@ class ThrowableObjects extends MoveableObject {
 
 
     animate() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.hurt == true) {
                 this.playAnimation(this.IMAGES_SPLASH);
 
@@ -52,7 +52,7 @@ class ThrowableObjects extends MoveableObject {
         this.applyGravity();
 
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.otherDirection) {
                 this.x -= 10;
             } else {

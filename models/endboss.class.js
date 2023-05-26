@@ -3,7 +3,7 @@ class Endboss extends MoveableObject {
     y = 50;
     height = 400;
     width = 300;
-    health = 15;
+    health = 35;
     speed = 1;
     hurt = false;
     IMAGES_ALERT = [
@@ -65,12 +65,16 @@ class Endboss extends MoveableObject {
     }
 
     animate() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                setTimeout(() => {
+                    stopGame(win);   
+                }, 1000);
             } else
-                if (this.health != 15) {
+                if (this.health != 35) {
                     this.playAnimation(this.IMAGES_HURT);
+                    this.speed = 2;
                     this.moveLeft();
                 } else {
                     // this.playAnimation(this.IMAGES_ALERT);

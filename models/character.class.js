@@ -9,13 +9,9 @@ class Character extends MoveableObject {
     otherDirection;
     world;
 
-    walking_sound = new Audio('audio/walking.mp3');
-    collect_sound = new Audio('audio/collect-sound.mp3');
-    death_sound = new Audio('audio/death-sound.mp3');
-    hurt_sound = new Audio('audio/hurt-sound.mp3');
-    jump_sound = new Audio('audio/jump-sound.mp3');
 
-    IMAGES_IDLE =[
+
+    IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
         'img/2_character_pepe/1_idle/idle/I-2.png',
         'img/2_character_pepe/1_idle/idle/I-3.png',
@@ -36,7 +32,7 @@ class Character extends MoveableObject {
         'img/2_character_pepe/1_idle/long_idle/I-18.png',
         'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
-        
+
     ];
 
     IMAGES_WALKING = [
@@ -95,30 +91,31 @@ class Character extends MoveableObject {
         this.applyGravity();
 
 
+
     }
 
 
 
     animate() {
 
-        setInterval(() => {
-            this.walking_sound.pause();
+        setStoppableInterval(() => {
+            walking_sound.pause();
             //this.jump_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < 1320) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
-                
+                walking_sound.play();
+
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
-               
+                walking_sound.play();
+
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump_sound.play();
+                jump_sound.play();
                 this.jump();
 
             }
@@ -126,28 +123,37 @@ class Character extends MoveableObject {
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
-                this.death_sound.play();
+                death_sound.play();
                 this.playAnimation(this.IMAGES_DEAD);
+                setTimeout(() => {
+                    stopGame(lose);
+                    this.pauseSounds();
+                }, 1000);
             } else
                 if (this.isHurt()) {
                     this.playAnimation(this.IMAGES_HURT);
-                    this.hurt_sound.play();
+                    hurt_sound.play();
 
                 } else
-
                     if (this.isAboveGround()) {
                         this.playAnimation(this.IMAGES_AIR);
                     } else
                         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                             this.playAnimation(this.IMAGES_WALKING);
                         }
-                        else{
+                        else {
                             this.playAnimation(this.IMAGES_IDLE);
                         }
 
         }, 100);
+
+    }
+
+    pauseSounds() {
+        walking_sound.pause();
+        jump_sound.pause();
 
     }
 

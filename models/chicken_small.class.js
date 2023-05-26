@@ -5,7 +5,7 @@ class ChickenSmall extends MoveableObject {
     health =1;
     hurt =false;
 
-    chicken_sound = new Audio('audio/chicken-sound.mp3');
+   
 
 
     IMAGES_WALKINg = [
@@ -29,16 +29,12 @@ class ChickenSmall extends MoveableObject {
     }
 
     animate() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
-        setInterval(() => {   
+        setStoppableInterval(() => {   
             if (this.isDead()) {
-                this.chicken_sound.play();
-                setTimeout(() => {
-                    this.chicken_sound.pause();
-                }, 1000);
                 this.playAnimation(this.IMAGES_DEAD);
                 this.speed =0;
 

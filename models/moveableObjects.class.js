@@ -4,9 +4,10 @@ class MoveableObject extends DrawableObjects {
     speedY = 0;
     acceleration = 2.5;
     lasthit = 0;
+  
 
     applyGravity() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isAboveGround() || this.speedY == 30) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -47,6 +48,7 @@ class MoveableObject extends DrawableObjects {
     }
 
     collect() {
+        collect_sound.play();
         this.coins += 20;
         if (this.coins > 100) {
             this.coins = 100;

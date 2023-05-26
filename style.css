@@ -10,6 +10,10 @@ body {
     height: 100vh;
     font-family: 'zabra';
 }
+
+table td{
+    width: 300px;
+}
 button{
     cursor: pointer;
 }
@@ -29,16 +33,37 @@ p {
 }
 
 canvas {
+
     background-color: black;
+
+}
+
+#fullscreen{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .guide-container {
+    height: 100%;
+    font-size: 50px;
+    position: absolute;
     width: 720px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    background-image: url("img/userAssets/skull.jpg");
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
 }
 
 #cover {
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,6 +74,7 @@ canvas {
     background-image: url("img/9_intro_outro_screens/start/startscreen_2.png");
     background-size: contain;
     background-repeat: no-repeat;
+    border-radius: 25px;
 
 }
 
@@ -61,6 +87,7 @@ canvas {
     font-family: 'zabra';
     font-size: 30px;
     
+    
 
 }
 
@@ -68,4 +95,44 @@ canvas {
     width: 720px;
     height: 480px;
 
+}
+
+.userInterface{
+    position: absolute;
+    right: 9px;
+    top: 5px;
+    width: 71px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+
+}
+
+.fullscreen-button-container{
+    bottom: 11px;
+    left: 23px;  
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.fullscreen-button-container img {
+    height: 30px !important;
+    width: 30px !important;
+    cursor: pointer;
+}
+
+.userInterface img{
+    height: 30px ;
+    width: 30px ;
+    cursor: pointer;
+}
+
+.fullscreen-button-container img:hover{
+    transform: scale(1.2);
+}
+
+.userInterface img:hover{
+    transform: scale(1.2);
 }

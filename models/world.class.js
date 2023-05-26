@@ -4,6 +4,7 @@ class World {
     statusbarCoin = new StatusbarCoin();
     statusbarBottle = new StatusbarBottle();
     statusbarEndboss = new StatusbarEndboss();
+    cover = new Cover();
     throwableObjects = [];
     level = level1;
     keyboard;
@@ -12,6 +13,7 @@ class World {
     justThrown = false;
     canvas;
     ctx;
+    
 
 
     constructor(canvas, keyboard) {
@@ -23,7 +25,7 @@ class World {
     }
 
     checkCollisions() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.enemyCollision();
             this.coinCollision();
             this.bottleCollision();
@@ -68,15 +70,12 @@ class World {
                 this.jumpOnHead(enemy);
                 if (enemy.health > 0) {
                     enemy.health--;
+                    chicken_sound.play();
                 }
-                if (enemy.isDead()) {
-                    this.removeBody(index);
-                }
-                
-
-
-            } else
-                if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
+           //     if (enemy.isDead()) {
+           //         this.removeBody(index);
+                }else  
+                if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isColliding(enemy) && enemy instanceof Endboss) {
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.health);
                     console.log(this.character.health);
@@ -115,14 +114,15 @@ class World {
             if (bottle.isColliding(enemy) && !enemy.isDead()) {
                 if (enemy.health > 0) {
                     enemy.health--;
-                 //   if (enemy instanceof Endboss) {
-                 //       this.statusbarEndboss.setPercentage(enemy.health);
-                 //       
-                 //   }
+                    chicken_sound.play();        
+                    if (enemy instanceof Endboss) {
+                        this.statusbarEndboss.setPercentage(enemy.health);
+
+                    }
                 }
-                if (enemy.isDead()) {
-                    this.removeBody(index);
-                }
+             //   if (enemy.isDead()) {
+             //       this.removeBody(index);
+             //   }
                 console.log(enemy.health, enemy);
             }
         });
@@ -156,10 +156,17 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.statusbarCoin);
         this.addToMap(this.statusbarBottle);
+        this.ctx.save();
+        this.ctx.scale(-1, 1);
+        this.ctx.translate(-canvas.width, 0);
         this.addToMap(this.statusbarEndboss);
+        this.ctx.restore();
+        this.addToMap(this.cover);
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
+
+
         requestAnimationFrame(function () {
             self.draw();
         });
@@ -179,7 +186,7 @@ class World {
             object.flipImage(this.ctx);
         }
         object.draw(this.ctx);
-        object.drawBorder(this.ctx);
+       // object.drawBorder(this.ctx);
         if (object.otherDirection) {
             object.flipImageBack(this.ctx);
 
