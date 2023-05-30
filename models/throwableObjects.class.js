@@ -1,6 +1,7 @@
 class ThrowableObjects extends MoveableObject {
     speedX = 5;
     speedY = 5;
+    explosion = false;
     IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -34,10 +35,10 @@ class ThrowableObjects extends MoveableObject {
 
     animate() {
         setStoppableInterval(() => {
-            if (this.hurt == true) {
+            if (this.explosion) {
                 this.playAnimation(this.IMAGES_SPLASH);
 
-            }
+            }else
             this.playAnimation(this.IMAGES_ROTATE);
         }, 1000 / 20);
     }
@@ -50,8 +51,6 @@ class ThrowableObjects extends MoveableObject {
         this.x = x;
         this.y = y;
         this.applyGravity();
-
-
         setStoppableInterval(() => {
             if (this.otherDirection) {
                 this.x -= 10;
@@ -59,10 +58,14 @@ class ThrowableObjects extends MoveableObject {
                 this.x += 10;}
             }, 25);
 
+    }
 
-
-
-
+    explosion(){
+        this.explosion =true;
+        setTimeout(() => {
+            this.explosion=false
+            
+        }, 1000);
     }
 
 }

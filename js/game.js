@@ -9,6 +9,7 @@ let mute = false;
 let instruction = false;
 let gameStarted = false;
 
+
 let walking_sound = new Audio('audio/walking.mp3');
 let death_sound = new Audio('audio/death-sound.mp3');
 let hurt_sound = new Audio('audio/hurt-sound.mp3');
@@ -24,13 +25,14 @@ function playBackgroundSound() {
     background_sound.play();
 }
 
+
 async function init() {
     await startLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     removeCover();
     keyboardCheck();
-    gameStarted=true;
+    gameStarted = true;
 
 }
 
@@ -122,15 +124,25 @@ function removeCover() {
 
 }
 
+
+
 function setStoppableInterval(fn, time) {
-    let id = setInterval(fn, time);
-    IntervallIds.push(id);
-
+  let id = setInterval(fn, time);
+  IntervallIds.push({ id, time, fn });
 }
 
-function stopGame(result) {
-    IntervallIds.forEach(clearInterval);
+function resumeGame() {
+  IntervallIds.forEach(interval => {
+    const { time, fn } = interval;
+    setStoppableInterval(() => fn(), time);
+  });
 }
+
+function stopGame() {
+  IntervallIds.forEach(interval => clearInterval(interval.id));
+  //IntervallIds = [];
+}
+
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
@@ -195,25 +207,28 @@ function soundMuteToggle(stance) {
 
 function showIntsructions() {
     if (!instruction) {
-        document.getElementById('guide').style.display = '';
-        document.getElementById('cover').style.display = 'none';
-        instruction = true;
+        stopGame();
+
+       document.getElementById('guide').style.display = '';
+       if (!gameStarted) {
+           document.getElementById('cover').style.display = 'none';
+       }
+       instruction = true;
 
     }
     else {
-        if (gameStarted) {
-            document.getElementById('guide').style.display = 'none';
-            instruction = false;
-            }
-            else{
-                document.getElementById('guide').style.display = '';
-                document.getElementById('cover').style.display = 'none';
+        resumeGame();
+        document.getElementById('guide').style.display = 'none';
+        if (!gameStarted) {
+            document.getElementById('cover').style.display = '';
 
-            }
-        
-    }
-  
+        }
+        instruction = false;
 
     }
+
+
+
+}
 
 

@@ -13,7 +13,8 @@ class World {
     justThrown = false;
     canvas;
     ctx;
-    
+    explosion =false;
+
 
 
     constructor(canvas, keyboard) {
@@ -72,9 +73,9 @@ class World {
                     enemy.health--;
                     chicken_sound.play();
                 }
-           //     if (enemy.isDead()) {
-           //         this.removeBody(index);
-                }else  
+                //     if (enemy.isDead()) {
+                //         this.removeBody(index);
+            } else
                 if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isColliding(enemy) && enemy instanceof Endboss) {
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.health);
@@ -109,28 +110,40 @@ class World {
         });
     }
 
-    hitEnemy(bottle) {
-        this.level.enemies.forEach((enemy, index) => {
+    hitEnemy(bottle, index) {
+        this.level.enemies.forEach((enemy, jdex) => {
             if (bottle.isColliding(enemy) && !enemy.isDead()) {
                 if (enemy.health > 0) {
                     enemy.health--;
-                    chicken_sound.play();        
+                    chicken_sound.play();
+                    bottle.explosion =true;
+                    this.removeBottle(index);
+
+
                     if (enemy instanceof Endboss) {
                         this.statusbarEndboss.setPercentage(enemy.health);
 
                     }
                 }
-             //   if (enemy.isDead()) {
-             //       this.removeBody(index);
-             //   }
+                //   if (enemy.isDead()) {
+                //       this.removeBody(index);
+                //   }
                 console.log(enemy.health, enemy);
             }
         });
     }
 
+    removeBottle(index){
+        setTimeout(() => {
+            this.throwableObjects.splice(index,1);
+            
+        }, 200);
+    }
+
+
     checkBottle() {
         this.throwableObjects.forEach((bottle, index) => {
-            this.hitEnemy(bottle);
+            this.hitEnemy(bottle, index);
 
         })
 
@@ -186,7 +199,7 @@ class World {
             object.flipImage(this.ctx);
         }
         object.draw(this.ctx);
-       // object.drawBorder(this.ctx);
+        // object.drawBorder(this.ctx);
         if (object.otherDirection) {
             object.flipImageBack(this.ctx);
 
