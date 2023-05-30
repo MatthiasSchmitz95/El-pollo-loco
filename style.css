@@ -134,7 +134,7 @@ canvas {
     position: absolute;
     right: 9px;
     top: 5px;
-    width: 71px;
+    width: 109px;
     display: flex;
     justify-content: space-between;
     z-index: 4;
@@ -142,8 +142,8 @@ canvas {
 }
 
 .fullscreen-button-container {
-    bottom: 11px;
-    left: 23px;
+    top: 15px;
+    left: 9px;
     position: absolute;
     display: flex;
     justify-content: flex-end;
@@ -160,6 +160,28 @@ canvas {
     height: 30px;
     width: 30px;
     cursor: pointer;
+}
+
+.remote-panel{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.remote-panel img{
+    width: 50px;
+    height: 50px;
+    z-index: 4;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.remote-panel img:hover{
+    transform: scale(1.1);
 }
 
 .fullscreen-button-container img:hover {

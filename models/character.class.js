@@ -10,7 +10,7 @@ class Character extends MoveableObject {
     world;
 
     offset = {
-        top: 100,
+        top: 50,
         left: 20,
         right: 20,
         bottom: 10  

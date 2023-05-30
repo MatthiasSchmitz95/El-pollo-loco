@@ -2,13 +2,12 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let IntervallIds = [];
-let win = 'You won';
-let lose = 'Game over';
 let fullscreencheck = false;
 let mute = false;
 let instruction = false;
 let gameStarted = false;
 let gameOver = false;
+let remotePanel = true;
 
 
 let walking_sound = new Audio('audio/walking.mp3');
@@ -32,90 +31,27 @@ async function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     removeCover();
-    keyboardCheck();
     gameStarted = true;
 
 }
 
-function keyboardCheck() {
-    window.addEventListener('keydown', (e) => {
-        //console.log(e);
-        let key = e['code'];
-        if (key === "Space") {
-            // console.log("Space");
-            keyboard.SPACE = true;
+function togglePanel() {
+    if (remotePanel) {
+        document.getElementById('remote-panel').style.opacity = '0';
+        document.getElementById('eye').style.display = 'none';
+        document.getElementById('eye-hidden').style.display = '';
+        remotePanel = false;
 
-        }
-        if (key === "ArrowRight") {
-            // console.log(keyboard);
-            keyboard.RIGHT = true;
+    } else {
+        document.getElementById('remote-panel').style.opacity = '1';
+        document.getElementById('eye').style.display = '';
+        document.getElementById('eye-hidden').style.display = 'none';
+        remotePanel = true;
+    }
 
-        }
-
-        if (key === "ArrowLeft") {
-            // console.log(keyboard);
-            keyboard.LEFT = true;
-
-        }
-
-        if (key === "ArrowDown") {
-            // console.log(keyboard);
-            keyboard.DOWN = true;
-
-        }
-
-        if (key === "ArrowUp") {
-            // console.log(keyboard);
-            keyboard.UP = true;
-
-        }
-        if (key === "KeyD") {
-            // console.log(keyboard);
-            keyboard.D = true;
-
-        }
-
-
-    })
-
-    window.addEventListener('keyup', (e) => {
-        //console.log(e);
-        let key = e['code'];
-        if (key === "Space") {
-            // console.log("Space");
-            keyboard.SPACE = false;
-
-        }
-        if (key === "ArrowRight") {
-            // console.log(keyboard);
-            keyboard.RIGHT = false;
-
-        }
-
-        if (key === "ArrowLeft") {
-            // console.log(keyboard);
-            keyboard.LEFT = false;
-
-        }
-
-        if (key === "ArrowDown") {
-            //console.log(keyboard);
-            keyboard.DOWN = false;
-
-        }
-
-        if (key === "ArrowUp") {
-            // console.log(keyboard);
-            keyboard.UP = false;
-
-        }
-        if (key === "KeyD") {
-            // console.log(keyboard);
-            keyboard.D = false;
-
-        }
-    });
 }
+
+
 
 
 function removeCover() {

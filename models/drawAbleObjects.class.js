@@ -16,6 +16,12 @@ class DrawableObjects {
                 this.width - this.offset.left - this.offset.right,
                 this.height - this.offset.top - this.offset.bottom
               );
+              ctx.rect(
+                this.x ,
+                this.y,
+                this.width,
+                this.height
+              );
             ctx.stroke();
 
         }

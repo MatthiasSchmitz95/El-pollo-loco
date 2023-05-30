@@ -67,7 +67,7 @@ class World {
 
     enemyCollision() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead() && !(enemy instanceof Endboss)) {
+            if (this.character.isCollidingOld(enemy) && this.character.isAboveGround() && !enemy.isDead() && !(enemy instanceof Endboss)) {
                 this.jumpOnHead(enemy);
                 if (enemy.health > 0) {
                     enemy.health--;
@@ -76,7 +76,7 @@ class World {
                 //     if (enemy.isDead()) {
                 //         this.removeBody(index);
             } else
-                if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isColliding(enemy) && enemy instanceof Endboss) {
+                if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isCollidingOld(enemy) && enemy instanceof Endboss) {
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.health);
                     console.log(this.character.health);
@@ -86,7 +86,7 @@ class World {
 
     coinCollision() {
         this.level.coins.forEach((coin, index) => {
-            if (this.character.isColliding(coin)) {
+            if (this.character.isCollidingOld(coin)) {
                 this.character.collect();
                 this.statusbarCoin.setPercentage(this.character.coins);
                 this.level.coins.splice(index, 1);
@@ -97,7 +97,7 @@ class World {
 
     bottleCollision() {
         this.level.salsabottle.forEach((bottle, index) => {
-            if (this.character.isCollidingOld(bottle) && this.thrown < 5) {
+            if (this.character.isColliding(bottle) && this.thrown < 5) {
                 this.character.collectBottle();
                 this.statusbarBottle.setPercentage(this.character.bottles);
                 this.level.salsabottle.splice(index, 1);

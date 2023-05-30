@@ -115,17 +115,19 @@ class MoveableObject extends DrawableObjects {
         this.speedY = 30;
     }
 
-    isCollidingOld(object) {
+    isColliding(object) {
         return this.x + this.width > object.x &&
             this.y + this.height > object.y &&
             this.x < object.x &&
             this.y < object.y + object.height
     }
 
-    isColliding(object) {
-        return this.x + this.width - this.offset.right > object.x - object.offset.left &&
+    isCollidingOld(object) {
+        return (
+            this.x + this.width - this.offset.right > object.x + object.offset.left &&
             this.y + this.height - this.offset.bottom > object.y + object.offset.top &&
             this.x + this.offset.left < object.x + object.width - object.offset.right &&
-            this.y + this.offset.top < object.y + object.height - object.offset.bottom;
-    }
+            this.y + this.offset.top < object.y + object.height - object.offset.bottom
+          );
+        }
 }

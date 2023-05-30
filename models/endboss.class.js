@@ -8,10 +8,10 @@ class Endboss extends MoveableObject {
     hurt = false;
 
     offset = {
-        top: 350,
-        bottom: 290,
-        left: 250,
-        right: 250
+        top: 50,
+        bottom: 10,
+        left: 55,
+        right: 90
     }
 
     IMAGES_ALERT = [

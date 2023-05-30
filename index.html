@@ -79,9 +79,21 @@
                 <img onclick="muteSpeaker()" id="speaker" src="img/userAssets/volume.png">
                 <img onclick="muteSpeaker()" id="mute" style="display: none;" src="img/userAssets/mute.png">
                 <img onclick="showIntsructions()" src="img/userAssets/information-button.png">
+                <img onclick="togglePanel()" id="eye" src="img/userAssets/eye.png">
+                <img onclick="togglePanel()" id="eye-hidden" src="img/userAssets/eye-hidden.png" style="display: none;">
             </div>
             <div class="fullscreen-button-container">
                 <img onclick="fullscreen()" src="img/userAssets/expand.png">
+            </div>
+            <div class="remote-panel" id="remote-panel">
+                <div>
+                    <img id="LEFT-arrow" src="img/userAssets/arrow-left.png" alt="left">
+                    <img id="RIGHT-arrow" src="img/userAssets/right-arrow.png" alt="right">
+                </div>
+                <div>
+                    <img id="throw" src="img/userAssets/bottle-throw.png" alt="left">
+                    <img id="jump" src="img/userAssets/jump.png" alt="left">
+                </div>
             </div>
 
             <canvas id="canvas" width="720px" height="480px">
