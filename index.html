@@ -47,22 +47,34 @@
                 <table style="margin-left: 120px;">
                     <tr>
                         <td>Arrow Right</td>
-                        <td>Walk Right</td>               
+                        <td>Walk Right</td>
                     </tr>
                     <tr>
                         <td>Arrow Left</td>
-                        <td>Walk Left</td>               
+                        <td>Walk Left</td>
                     </tr>
                     <tr>
                         <td>Spacebar</td>
-                        <td>Jump</td>               
+                        <td>Jump</td>
                     </tr>
                     <tr>
                         <td>D</td>
-                        <td>Throw Bottle</td>               
+                        <td>Throw Bottle</td>
                     </tr>
                 </table>
             </div>
+
+            <div class="game-over-container" style="display: none;" id="game-over-container">
+                <img src="img/9_intro_outro_screens/game_over/game over.png" alt="game over">
+                <div class="game-over-buttons">
+                    <button onclick="playAgain()">Play again</button>
+                    <button onclick="backToMenu()">Back to Menu</button>
+
+                </div>
+
+
+            </div>
+
             <div class="userInterface">
                 <img onclick="muteSpeaker()" id="speaker" src="img/userAssets/volume.png">
                 <img onclick="muteSpeaker()" id="mute" style="display: none;" src="img/userAssets/mute.png">

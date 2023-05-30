@@ -5,8 +5,12 @@ class ChickenSmall extends MoveableObject {
     health =1;
     hurt =false;
 
-   
-
+    offset = {
+        top: 65,
+        left: 60,
+        right: 60,
+        bottom: 60  
+    };
 
     IMAGES_WALKINg = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -20,11 +24,11 @@ class ChickenSmall extends MoveableObject {
     ];
 
 
-    constructor() {
+    constructor(x) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKINg);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 600 + Math.random() * 500;
+        this.x = x + Math.random() * 500;
         this.animate();
     }
 

@@ -1,4 +1,4 @@
-class DrawableObjects{
+class DrawableObjects {
     x = 120;
     y = 200;
     height = 150;
@@ -8,9 +8,14 @@ class DrawableObjects{
     img;
 
     drawBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall) {
+        if (this instanceof Coin || this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall) {
             ctx.beginPath();
-            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.rect(
+                this.x + this.offset.left,
+                this.y + this.offset.top,
+                this.width - this.offset.left - this.offset.right,
+                this.height - this.offset.top - this.offset.bottom
+              );
             ctx.stroke();
 
         }
@@ -32,16 +37,16 @@ class DrawableObjects{
 
     }
 
-    draw(ctx){
-        try{
+    draw(ctx) {
+        try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
-        } catch(e){
+        } catch (e) {
 
         }
-        
+
     }
 
-    
+
 
 }

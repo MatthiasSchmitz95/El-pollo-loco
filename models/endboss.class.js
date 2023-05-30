@@ -1,11 +1,19 @@
 class Endboss extends MoveableObject {
-    x = 1000;
+    x = 1400;
     y = 50;
     height = 400;
     width = 300;
     health = 35;
     speed = 1;
     hurt = false;
+
+    offset = {
+        top: 350,
+        bottom: 290,
+        left: 250,
+        right: 250
+    }
+
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -69,7 +77,7 @@ class Endboss extends MoveableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 setTimeout(() => {
-                    stopGame(win);   
+                    endGame();   
                 }, 1000);
             } else
                 if (this.health != 35) {

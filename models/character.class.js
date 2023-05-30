@@ -9,6 +9,13 @@ class Character extends MoveableObject {
     otherDirection;
     world;
 
+    offset = {
+        top: 100,
+        left: 20,
+        right: 20,
+        bottom: 10  
+    };
+
 
 
     IMAGES_IDLE = [
@@ -90,52 +97,56 @@ class Character extends MoveableObject {
         this.animate();
         this.applyGravity();
 
-
-
     }
 
 
+    keyRight() {
+        if (this.world.keyboard.RIGHT && this.x < 1320) {
+            this.moveRight();
+            this.otherDirection = false;
+            walking_sound.play();
+        }
+    }
+
+    keyLeft() {
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            walking_sound.play();
+
+        }
+
+    }
+
+    keySpace() {
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            jump_sound.play();
+            this.jump();
+
+        }
+
+    }
 
     animate() {
 
         setStoppableInterval(() => {
             walking_sound.pause();
-            //this.jump_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < 1320) {
-                this.moveRight();
-                this.otherDirection = false;
-                walking_sound.play();
-
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                walking_sound.play();
-
-            }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                jump_sound.play();
-                this.jump();
-
-            }
-
+            this.keyRight();
+            this.keyLeft();
+            this.keySpace();
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
+        this.stanceAnimations();
 
+    }
+
+    stanceAnimations() {
         setStoppableInterval(() => {
             if (this.isDead()) {
-                death_sound.play();
-                this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    stopGame(lose);
-                    this.pauseSounds();
-                }, 1000);
+                this.forDead();
             } else
                 if (this.isHurt()) {
-                    this.playAnimation(this.IMAGES_HURT);
-                    hurt_sound.play();
-
+                    this.forHurt();
                 } else
                     if (this.isAboveGround()) {
                         this.playAnimation(this.IMAGES_AIR);
@@ -149,6 +160,21 @@ class Character extends MoveableObject {
 
         }, 100);
 
+    }
+
+    forDead() {
+        death_sound.play();
+        this.playAnimation(this.IMAGES_DEAD);
+        setTimeout(() => {
+            endGame();
+            this.pauseSounds();
+        }, 1000);
+
+    }
+
+    forHurt() {
+        this.playAnimation(this.IMAGES_HURT);
+        hurt_sound.play();
     }
 
     pauseSounds() {

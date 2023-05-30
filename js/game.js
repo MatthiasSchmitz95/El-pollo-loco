@@ -8,6 +8,7 @@ let fullscreencheck = false;
 let mute = false;
 let instruction = false;
 let gameStarted = false;
+let gameOver = false;
 
 
 let walking_sound = new Audio('audio/walking.mp3');
@@ -127,20 +128,37 @@ function removeCover() {
 
 
 function setStoppableInterval(fn, time) {
-  let id = setInterval(fn, time);
-  IntervallIds.push({ id, time, fn });
+    let id = setInterval(fn, time);
+    IntervallIds.push({ id, time, fn });
 }
 
 function resumeGame() {
-  IntervallIds.forEach(interval => {
-    const { time, fn } = interval;
-    setStoppableInterval(() => fn(), time);
-  });
+    IntervallIds.forEach(interval => {
+        const { time, fn } = interval;
+        setStoppableInterval(() => fn(), time);
+    });
 }
 
 function stopGame() {
-  IntervallIds.forEach(interval => clearInterval(interval.id));
-  //IntervallIds = [];
+    IntervallIds.forEach(interval => clearInterval(interval.id));
+    //IntervallIds = [];
+}
+
+function endGame() {
+    stopGame();
+    gameOver = true;
+    document.getElementById('game-over-container').style.display = '';
+
+}
+
+function playAgain() {
+    init();
+    document.getElementById('game-over-container').style.display = 'none';
+}
+
+function backToMenu() {
+    document.getElementById('game-over-container').style.display = 'none';
+    document.getElementById('cover').style.display = '';
 }
 
 
@@ -209,15 +227,17 @@ function showIntsructions() {
     if (!instruction) {
         stopGame();
 
-       document.getElementById('guide').style.display = '';
-       if (!gameStarted) {
-           document.getElementById('cover').style.display = 'none';
-       }
-       instruction = true;
+        document.getElementById('guide').style.display = '';
+        if (!gameStarted) {
+            document.getElementById('cover').style.display = 'none';
+        }
+        instruction = true;
 
     }
     else {
-        resumeGame();
+        if (!gameOver) {
+            resumeGame();
+        }
         document.getElementById('guide').style.display = 'none';
         if (!gameStarted) {
             document.getElementById('cover').style.display = '';

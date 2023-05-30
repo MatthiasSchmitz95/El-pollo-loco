@@ -97,7 +97,7 @@ class World {
 
     bottleCollision() {
         this.level.salsabottle.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle) && this.thrown < 5) {
+            if (this.character.isCollidingOld(bottle) && this.thrown < 5) {
                 this.character.collectBottle();
                 this.statusbarBottle.setPercentage(this.character.bottles);
                 this.level.salsabottle.splice(index, 1);
@@ -199,7 +199,7 @@ class World {
             object.flipImage(this.ctx);
         }
         object.draw(this.ctx);
-        // object.drawBorder(this.ctx);
+         object.drawBorder(this.ctx);
         if (object.otherDirection) {
             object.flipImageBack(this.ctx);
 
