@@ -9,11 +9,11 @@ class Salsabottle extends DrawableObjects {
 
     ]
 
-    constructor() {
+    constructor(x) {
         super();
         this.loadImages(this.IMAGE_SALSABOTTLE);
         this.setImage();
-        this.x = this.x + Math.random() * 500 + 400;
+        this.x = x + Math.random() * 500 ;
     }
 
     setImage() {

@@ -157,6 +157,7 @@ canvas {
     height: 30px !important;
     width: 30px !important;
     cursor: pointer;
+    z-index: 3;
 }
 
 .userInterface img {
