@@ -73,8 +73,6 @@ class World {
                     enemy.health--;
                     chicken_sound.play();
                 }
-                //     if (enemy.isDead()) {
-                //         this.removeBody(index);
             } else
                 if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isCollidingOld(enemy) && enemy instanceof Endboss) {
                     this.character.hit();
@@ -118,17 +116,11 @@ class World {
                     chicken_sound.play();
                     bottle.explosion =true;
                     this.removeBottle(index);
-
-
                     if (enemy instanceof Endboss) {
                         this.statusbarEndboss.setPercentage(enemy.health);
 
                     }
                 }
-                //   if (enemy.isDead()) {
-                //       this.removeBody(index);
-                //   }
-                console.log(enemy.health, enemy);
             }
         });
     }

@@ -1,10 +1,10 @@
 class Endboss extends MoveableObject {
-    x = 1400;
+    x = 1700;
     y = 50;
     height = 400;
     width = 300;
     health = 35;
-    speed = 1;
+    speed = 0;
     hurt = false;
 
     offset = {
@@ -85,9 +85,9 @@ class Endboss extends MoveableObject {
                     this.speed = 2;
                     this.moveLeft();
                 } else {
-                    // this.playAnimation(this.IMAGES_ALERT);
+                    this.playAnimation(this.IMAGES_ALERT);
 
-                    this.playAnimation(this.IMAGES_WALK);
+                    //this.playAnimation(this.IMAGES_WALK);
                     this.moveLeft();
 
 
