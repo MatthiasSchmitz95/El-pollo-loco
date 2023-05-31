@@ -101,7 +101,7 @@ class Character extends MoveableObject {
 
 
     keyRight() {
-        if (this.world.keyboard.RIGHT && this.x < 1320) {
+        if (this.world.keyboard.RIGHT && this.x < 1620) {
             this.moveRight();
             this.otherDirection = false;
             walking_sound.play();

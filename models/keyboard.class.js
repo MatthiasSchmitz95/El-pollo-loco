@@ -7,14 +7,14 @@ class Keyboard {
     D = false;
 
     constructor(){
-        this.eventKeyboardBtns();
-        this.eventTouchpadBtns();
+        this.eventKeyboard();
+        this.eventTouchpad();
 
     }
 
 
 
-    eventKeyboardBtns() {
+    eventKeyboard() {
         window.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 this.LEFT = true;
@@ -30,10 +30,12 @@ class Keyboard {
     
             if (event.key === ' ') {
                 this.SPACE = true;
+                console.log(this.SPACE);
             }
     
-            if (event.key === 'KeyD') {
+            if (event.key === 'd') {
                 this.D = true;
+                console.log(this.D);
             }
         });
     
@@ -54,13 +56,13 @@ class Keyboard {
                 this.SPACE = false;
             }
     
-            if (event.key === 'KeyD') {
+            if (event.key === 'd') {
                 this.D = false;
             }
         });
     }
     
-    eventTouchpadBtns() {
+    eventTouchpad() {
         setTimeout(() => {
             document.getElementById('LEFT-arrow').addEventListener('touchstart', (event) => {
                 event.preventDefault();
