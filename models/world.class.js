@@ -14,7 +14,7 @@ class World {
     canvas;
     ctx;
     explosion = false;
-    justHit = false;
+
 
 
 
@@ -68,19 +68,17 @@ class World {
 
     enemyCollision() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead() && !(enemy instanceof Endboss)) {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround() && !this.character.isHurt() && !enemy.isDead() && !(enemy instanceof Endboss)) {
                 this.jumpOnHead(enemy);
                 if (enemy.health > 0) {
                     enemy.health--;
                     chicken_sound.play();
                 }
             } else
-                if (!this.justHit && this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isColliding(enemy) && enemy instanceof Endboss) {
+                if (!this.character.isHurt() && this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isColliding(enemy) && enemy instanceof Endboss) {
                     this.justHit = true;
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.health);
-                    this.character.speedX = -100;
-                    this.character.update();
                     setTimeout(() => {
                         this.justHit = false;
                     }, 100);
