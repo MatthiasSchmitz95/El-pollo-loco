@@ -3,9 +3,11 @@ class Endboss extends MoveableObject {
     y = 50;
     height = 400;
     width = 300;
-    health = 35;
+    health = 6;
     speed = 0;
     hurt = false;
+    firstContact = false;
+    hitBoss = false;
 
     offset = {
         top: 50,
@@ -73,27 +75,62 @@ class Endboss extends MoveableObject {
     }
 
     animate() {
+        let i = 0;
         setStoppableInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    endGame();   
-                }, 1000);
+                this.deathAnimation();
             } else
-                if (this.health != 35) {
-                    this.playAnimation(this.IMAGES_HURT);
-                    this.speed = 2;
-                    this.moveLeft();
-                } else {
-                    this.playAnimation(this.IMAGES_ALERT);
+                if (!this.hitBoss && this.firstContact) {
+                    this.attackAnimation();
 
-                    //this.playAnimation(this.IMAGES_WALK);
-                    this.moveLeft();
+                } else
+                    if (this.hitBoss) {
+                        this.hurtAnimation();
 
+                    } else {
+                        if (i < 10) {
+                            this.playAnimation(this.IMAGES_ALERT);
+                        } else {
+                            if (i > 10 && this.firstContact)
+                                this.attackAnimation();
+                        }
+                        i++;
 
-                }
+                    }
+            if (world.character.x > 1300 && !this.firstContact) {
+                i = 0;
+                this.firstContact = true;
+
+            }
 
         }, 100);
+    }
+
+    deathAnimation() {
+        this.playAnimation(this.IMAGES_DEAD);
+        setTimeout(() => {
+            endGame();
+        }, 700);
+
+    }
+
+    hurtAnimation() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.speed = 4;
+        this.moveLeft();
+        setTimeout(() => {
+            this.hitBoss = false;
+        }, 1500);
+
+    }
+
+
+
+    attackAnimation() {
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.speed = 6;
+        this.moveLeft();
+
     }
 
 }

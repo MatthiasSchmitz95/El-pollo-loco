@@ -96,7 +96,7 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.animate();
         this.applyGravity();
-
+        
     }
 
 
@@ -126,6 +126,11 @@ class Character extends MoveableObject {
         }
 
     }
+
+    update() {
+        // Update character's position based on speedX and speedY
+        this.x += this.speedX;
+        this.y += this.speedY;}
 
     animate() {
 

@@ -3,10 +3,10 @@ class Coin extends MoveableObject {
     x = 200;
 
     offset = {
-        top: 50,
-        bottom: 50,
-        left: 70,
-        right: 70
+        top: 20,
+        bottom: 30,
+        left: 40,
+        right: 40
     }
 
     IMAGES_SPIN = [

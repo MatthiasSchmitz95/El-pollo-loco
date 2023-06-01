@@ -30,12 +30,12 @@ class Keyboard {
     
             if (event.key === ' ') {
                 this.SPACE = true;
-                console.log(this.SPACE);
+                
             }
     
             if (event.key === 'd') {
                 this.D = true;
-                console.log(this.D);
+               
             }
         });
     

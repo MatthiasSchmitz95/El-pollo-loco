@@ -19,6 +19,31 @@ let background_sound = new Audio('audio/background-sound.mp3');
 let collect_sound = new Audio('audio/collect-coin.mp3');
 
 
+window.addEventListener("DOMContentLoaded", function() {
+    var rotateMessage = document.getElementById("rotate-message");
+  
+    function checkRotation() {
+      if (window.innerWidth < 1080 && (window.orientation === undefined || window.orientation === 0)) {
+        rotateMessage.style.display = "block";
+      } else {
+        rotateMessage.style.display = "none";
+      }
+    }
+  
+    // Check rotation on page load
+    checkRotation();
+  
+    // Check rotation on window resize
+    window.addEventListener("resize", checkRotation);
+  });
+  
+  
+  
+  
+  
+  
+  
+
 
 function playBackgroundSound() {
     background_sound.loop = true;

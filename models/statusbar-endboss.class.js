@@ -31,23 +31,23 @@ class StatusbarEndboss extends DrawableObjects {
     }
 
     imgIndexof() {
-        if (this.percentage == 35) {
+        if (this.percentage == 6) {
             return 5;
 
         }
-        if (this.percentage <= 34 && this.percentage >= 25) {
+        if (this.percentage == 5 ) {
             return 4;
 
         }
-        if (this.percentage <= 25 && this.percentage >= 19) {
+        if (this.percentage ==4 ) {
             return 3;
 
         }
-        if (this.percentage <= 19 && this.percentage >= 10) {
+        if (this.percentage == 3 ) {
             return 2;
 
         }
-        if (this.percentage <= 10 && this.percentage >= 1) {
+        if (this.percentage <= 2 && this.percentage >0) {
             return 1;
 
         }

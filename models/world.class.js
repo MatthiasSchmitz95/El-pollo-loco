@@ -13,7 +13,8 @@ class World {
     justThrown = false;
     canvas;
     ctx;
-    explosion =false;
+    explosion = false;
+    justHit = false;
 
 
 
@@ -67,16 +68,22 @@ class World {
 
     enemyCollision() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isCollidingOld(enemy) && this.character.isAboveGround() && !enemy.isDead() && !(enemy instanceof Endboss)) {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead() && !(enemy instanceof Endboss)) {
                 this.jumpOnHead(enemy);
                 if (enemy.health > 0) {
                     enemy.health--;
                     chicken_sound.play();
                 }
             } else
-                if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isCollidingOld(enemy) && enemy instanceof Endboss) {
+                if (!this.justHit && this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() || this.character.isColliding(enemy) && enemy instanceof Endboss) {
+                    this.justHit = true;
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.health);
+                    this.character.speedX = -100;
+                    this.character.update();
+                    setTimeout(() => {
+                        this.justHit = false;
+                    }, 100);
                     console.log(this.character.health);
                 }
         });
@@ -84,7 +91,7 @@ class World {
 
     coinCollision() {
         this.level.coins.forEach((coin, index) => {
-            if (this.character.isCollidingOld(coin)) {
+            if (this.character.isColliding(coin)) {
                 this.character.collect();
                 this.statusbarCoin.setPercentage(this.character.coins);
                 this.level.coins.splice(index, 1);
@@ -109,38 +116,38 @@ class World {
     }
 
     hitEnemy(bottle, index) {
-        this.level.enemies.forEach((enemy, jdex) => {
+        this.level.enemies.forEach((enemy) => {
             if (bottle.isColliding(enemy) && !enemy.isDead()) {
-                if (enemy.health > 0) {
-                    enemy.health--;
-                    chicken_sound.play();
-                    bottle.explosion =true;
+                enemy.health--;
+                chicken_sound.play();
+                bottle.explosion = true;
+                setTimeout(() => {
                     this.removeBottle(index);
-                    if (enemy instanceof Endboss) {
-                        this.statusbarEndboss.setPercentage(enemy.health);
-
-                    }
+            
+                }, 500);
+                
+                if (enemy instanceof Endboss) {
+                    this.statusbarEndboss.setPercentage(enemy.health);
+                    enemy.hitBoss = true;
+                    console.log(enemy.health);
                 }
             }
         });
     }
 
-    removeBottle(index){
-        setTimeout(() => {
-            this.throwableObjects.splice(index,1);
-            
-        }, 200);
+
+    removeBottle(index) {
+        this.throwableObjects.splice(index, 1);
     }
 
 
     checkBottle() {
         this.throwableObjects.forEach((bottle, index) => {
-            this.hitEnemy(bottle, index);
-
-        })
-
-    }
-
+            if (!bottle.explosion) {
+                this.hitEnemy(bottle, index);
+            }
+        });
+     }
 
 
     setWorld() {
@@ -191,7 +198,7 @@ class World {
             object.flipImage(this.ctx);
         }
         object.draw(this.ctx);
-         object.drawBorder(this.ctx);
+     //   object.drawBorder(this.ctx);
         if (object.otherDirection) {
             object.flipImageBack(this.ctx);
 

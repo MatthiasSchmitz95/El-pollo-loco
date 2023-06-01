@@ -43,6 +43,22 @@ canvas {
 
 }
 
+#rotate-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    text-align: center;
+    background-color: #f39f86;
+    background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+    padding: 20px;
+    z-index: 9999;
+    background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+    border-radius: 25px;
+  }
+
 #fullscreen {
     position: relative;
     display: flex;
@@ -88,12 +104,15 @@ canvas {
     bottom: 0;
     justify-content: space-between;
     width: 100%;
+    
 }
 
 .game-over-buttons button{
     height: 55px;
     width:170px;
     border-radius: 13px;
+    background-color: #f39f86;
+    background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
 }
 
 
