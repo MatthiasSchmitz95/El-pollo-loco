@@ -70,7 +70,7 @@
      * @returns {number} - The index of the image.
      */
     imgIndexof() {
-        if (this.percentage === 6) {
+        if (this.percentage > 5) {
             return 5;
         } else if (this.percentage === 5) {
             return 4;
