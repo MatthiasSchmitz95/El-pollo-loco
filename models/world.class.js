@@ -173,7 +173,7 @@
                 setTimeout(() => {
                     this.justHit = false;
                 }, 100);
-                console.log(this.character.health);
+                
             }
         });
     }
@@ -227,7 +227,6 @@
                 if (enemy instanceof Endboss) {
                     this.statusbarEndboss.setPercentage(enemy.health);
                     enemy.hitBoss = true;
-                    console.log(enemy.health);
                 }
             }
         });

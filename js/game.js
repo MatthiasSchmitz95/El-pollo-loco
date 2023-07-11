@@ -195,6 +195,7 @@ function playAgain() {
  */
 function backToMenu() {
     document.getElementById('game-over-container').style.display = 'none';
+    document.getElementById('cover').style.display = 'flex';
 }
 
 /**
